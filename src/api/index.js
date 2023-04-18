@@ -1,41 +1,52 @@
-import axios from "axios";
-
+import axios from 'axios';
 const api = axios.create({
-    baseURL: 'http://localhost:3001/api'
+    baseURL: 'http://localhost:3001/api',
+    "Content-Type": 'application/json'
 });
-
-//get all
+const setHeader = ()=>{
+    return{
+        headers: {
+        Authorization: `bearer ${sessionStorage.getItem("token")}`
+    }
+    };
+};
+// register
+const register = async(payload)=>{
+    return api.post('/register', payload);
+};
+// login
+const login = async(payload) => {
+    const res = await api.post('/login', payload);
+    sessionStorage.setItem("token", res.data.token);
+    return res;
+};
+// get all
 const getAllAlbums = async () => {
-    return api.get('/music');
+    return api.get('/music', setHeader());
 };
-
-//get by id
-
-const getAlbumsById = async (id) => {
-    return api.get(`/music/${id}`);
+// get by id
+const getAlbumById = async (id) =>{
+    return api.get(`/music/${id}`, setHeader());
 };
-
 // create
 const createAlbum = async (payload) =>{
-    return api.post('/music',payload);
+    return api.post('/music', payload, setHeader());
 };
-//update
-const updateAlbum = async (id,payload) =>{
-    return api.put(`/music/${id}`,payload)
-}
-//delete
-
+// update
+const updateAlbum = async (id, payload) => {
+    return api.put(`/music/${id}`, payload, setHeader());
+};
+// delete
 const deleteAlbum = async (id) => {
-    return api.delete(`/music/${id}`);
-}
-
-
+    return api.delete(`/music/${id}`, setHeader());
+};
 const apiCalls = {
+    register,
+    login,
     getAllAlbums,
-    getAlbumsById,
+    getAlbumById,
     createAlbum,
     updateAlbum,
     deleteAlbum
 }
-
 export default apiCalls;

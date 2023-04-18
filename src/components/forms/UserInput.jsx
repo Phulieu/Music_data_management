@@ -8,10 +8,10 @@ const Input = styled.input.attrs({
     margin-bottom: 5px;
 `;
 
-const UserInput = ({setValue, initialValue}) => {
+const UserInput = ({setValue, initialValue, type ="text"}) => {
     return (
         <Input 
-            type = 'text' 
+            type = {type}
             placeholder={initialValue}  
             onChange={(e) => {
                 setValue(e.target.value);

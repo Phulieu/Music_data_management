@@ -4,5 +4,9 @@ import CreateAlbum from "./CreateAlbum";
 
 import UpdateAlbum from "./UpdateAlbum";
 
+import Register from "./Register";
 
-export {AlbumList,CreateAlbum, UpdateAlbum};
+import Login from "./Login";
+
+
+export {AlbumList,CreateAlbum, UpdateAlbum, Register, Login};
